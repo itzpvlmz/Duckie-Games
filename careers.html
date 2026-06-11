@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Careers - Duckie Games</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --gold: #D4AF37;
+            --purple: #8B5CF6;
+            --black: #0F0F0F;
+            --white: #FFFFFF;
+            --gray-dark: #2D2D2D;
+            --gray-light: #4A4A4A;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--black);
+            color: var(--white);
+            line-height: 1.6;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 15, 15, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            z-index: 1000;
+            padding: 1rem 2rem;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold), var(--purple));
+            transition: var(--transition);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a:hover {
+            color: var(--gold);
+        }
+
+        section {
+            padding: 6rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        section:first-of-type {
+            margin-top: 70px;
+        }
+
+        .hero-section {
+            text-align: center;
+            padding: 6rem 2rem 4rem;
+        }
+
+        .section-title {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .section-title span {
+            color: var(--gold);
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--gray-light);
+            margin-bottom: 3rem;
+            font-weight: 300;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .notice-box {
+            background: rgba(139, 92, 246, 0.1);
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .notice-title {
+            font-size: 1.8rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+            letter-spacing: -0.5px;
+        }
+
+        .notice-text {
+            color: var(--gray-light);
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .roles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .job-card {
+            background: rgba(139, 92, 246, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 12px;
+            padding: 2.5rem;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .job-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.15), transparent);
+            transition: var(--transition);
+        }
+
+        .job-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--gold);
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .job-card:hover::before {
+            left: 100%;
+        }
+
+        .job-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .job-title {
+            font-size: 1.6rem;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.5px;
+        }
+
+        .job-description {
+            color: var(--gray-light);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, var(--gold), #E5C158);
+            color: var(--black);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            align-self: flex-start;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
+        }
+
+        .values-section {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(212, 175, 55, 0.05));
+            border-radius: 12px;
+            padding: 4rem;
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        .values-section h3 {
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 2rem;
+            letter-spacing: -0.5px;
+        }
+
+        .values-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .value-item {
+            padding: 1.5rem;
+        }
+
+        .value-item h4 {
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .value-item p {
+            color: var(--gray-light);
+            font-size: 0.95rem;
+        }
+
+        footer {
+            background: var(--gray-dark);
+            padding: 4rem 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        footer p {
+            color: var(--gray-light);
+            margin-bottom: 1rem;
+        }
+
+        footer a {
+            color: var(--gold);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        footer a:hover {
+            color: var(--purple);
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                gap: 1.5rem;
+                font-size: 0.85rem;
+            }
+
+            section {
+                padding: 4rem 1.5rem;
+            }
+
+            .roles-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .values-section {
+                padding: 2rem;
+            }
+
+            .values-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">🦆 Duckie Games</div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="roadmap.html">Roadmap</a></li>
+                <li><a href="devblog.html">Dev Blog</a></li>
+                <li><a href="careers.html">Careers</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero-section">
+        <h1 class="section-title">Join <span>Duckie Games</span></h1>
+        <p class="section-subtitle">Help build the future of Duckie Games through creativity, passion, and collaboration</p>
+    </section>
+
+    <section>
+        <div class="notice-box">
+            <h3 class="notice-title">⚠️ Important Notice</h3>
+            <p class="notice-text">Duckie Games is currently a passion-driven independent project. These roles are volunteer-based. No compensation, salary, royalties, revenue share, or future payment is promised or guaranteed unless agreed upon in a separate written agreement. We're building this together because we love creating games.</p>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-title">Open <span>Positions</span></h2>
+        <p class="section-subtitle">We're currently looking for passionate creators interested in helping bring our projects to life</p>
+
+        <div class="roles-grid">
+            <div class="job-card">
+                <div class="job-icon">⚙️</div>
+                <h3 class="job-title">Gameplay Programmer</h3>
+                <p class="job-description">Help build movement, combat systems, enemy AI, UI logic, and playable prototypes. You'll shape how players interact with our worlds.</p>
+                <a href="contact.html" class="btn">Apply Now</a>
+            </div>
+
+            <div class="job-card">
+                <div class="job-icon">🎨</div>
+                <h3 class="job-title">Environment Artist</h3>
+                <p class="job-description">Create backgrounds, level art, environmental props, parallax layers, and storytelling assets that bring our worlds to life.</p>
+                <a href="contact.html" class="btn">Apply Now</a>
+            </div>
+
+            <div class="job-card">
+                <div class="job-icon">👥</div>
+                <h3 class="job-title">Character Artist / Animator</h3>
+                <p class="job-description">Design characters, enemies, bosses, animations, and visual identity for Duckie Games projects. Shape how our worlds feel.</p>
+                <a href="contact.html" class="btn">Apply Now</a>
+            </div>
+
+            <div class="job-card">
+                <div class="job-icon">🎮</div>
+                <h3 class="job-title">UI / UX Designer</h3>
+                <p class="job-description">Design menus, HUD elements, inventory screens, icons, and player-facing interfaces. Make games intuitive and beautiful.</p>
+                <a href="contact.html" class="btn">Apply Now</a>
+            </div>
+
+            <div class="job-card">
+                <div class="job-icon">🎵</div>
+                <h3 class="job-title">Composer / Sound Designer</h3>
+                <p class="job-description">Create music, ambience, sound effects, combat themes, and emotional audio moments that define our game worlds.</p>
+                <a href="contact.html" class="btn">Apply Now</a>
+            </div>
+
+            <div class="job-card">
+                <div class="job-icon">📢</div>
+                <h3 class="job-title">Community / Marketing Helper</h3>
+                <p class="job-description">Assist with updates, social posts, community growth, outreach, and sharing development progress with our audience.</p>
+                <a href="contact.html" class="btn">Apply Now</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="values-section">
+        <h3>What We're Looking For</h3>
+        <div class="values-list">
+            <div class="value-item">
+                <h4>🔥 Passion</h4>
+                <p>Love for games and creative work drives everything we do.</p>
+            </div>
+            <div class="value-item">
+                <h4>💡 Creativity</h4>
+                <p>Fresh ideas and willingness to experiment with new approaches.</p>
+            </div>
+            <div class="value-item">
+                <h4>🎯 Focus</h4>
+                <p>Commitment to quality and delivering meaningful work.</p>
+            </div>
+            <div class="value-item">
+                <h4>🤝 Collaboration</h4>
+                <p>Ability to work well with a diverse team of creators.</p>
+            </div>
+            <div class="value-item">
+                <h4>📚 Growth</h4>
+                <p>Willingness to learn and improve your craft continuously.</p>
+            </div>
+            <div class="value-item">
+                <h4>🌟 Vision</h4>
+                <p>Belief in creating meaningful, memorable experiences for players.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Duckie Games. All rights reserved.</p>
+        <p><a href="contact.html">Get in Touch</a> • <a href="devblog.html">Dev Blog</a> • <a href="careers.html">Careers</a></p>
+    </footer>
+</body>
+</html>

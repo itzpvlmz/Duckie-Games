@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Duckie Games</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --gold: #D4AF37;
+            --purple: #8B5CF6;
+            --purple-dark: #6D28D9;
+            --black: #0F0F0F;
+            --white: #FFFFFF;
+            --gray-dark: #2D2D2D;
+            --gray-light: #4A4A4A;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--black);
+            color: var(--white);
+            line-height: 1.6;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 15, 15, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            z-index: 1000;
+            padding: 1rem 2rem;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold), var(--purple));
+            transition: var(--transition);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a:hover {
+            color: var(--gold);
+        }
+
+        section {
+            padding: 6rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        section:first-of-type {
+            margin-top: 70px;
+        }
+
+        .hero-section {
+            text-align: center;
+            padding: 8rem 2rem;
+        }
+
+        .section-title {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .section-title span {
+            color: var(--gold);
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--gray-light);
+            margin-bottom: 3rem;
+            font-weight: 300;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .content-block {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin: 4rem 0;
+        }
+
+        .content-block:nth-child(even) {
+            direction: rtl;
+        }
+
+        .content-block:nth-child(even) > * {
+            direction: ltr;
+        }
+
+        .text-content h3 {
+            font-size: 2.2rem;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.5px;
+        }
+
+        .text-content p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--gray-light);
+            margin-bottom: 1.5rem;
+        }
+
+        .visual-content {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(212, 175, 55, 0.05));
+            border-radius: 12px;
+            padding: 3rem;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            font-size: 4rem;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .value-card {
+            background: rgba(139, 92, 246, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 12px;
+            padding: 2.5rem;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .value-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.2), transparent);
+            transition: var(--transition);
+        }
+
+        .value-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--gold);
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .value-card:hover::before {
+            left: 100%;
+        }
+
+        .value-card h4 {
+            font-size: 1.8rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .value-card p {
+            color: var(--gray-light);
+            line-height: 1.6;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 2rem;
+            margin: 3rem 0;
+            position: relative;
+            padding-left: 50px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            background: var(--gold);
+            border-radius: 50%;
+            border: 3px solid var(--gray-dark);
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            width: 2px;
+            height: calc(100% + 60px);
+            background: rgba(212, 175, 55, 0.2);
+        }
+
+        .timeline-item:last-child::after {
+            display: none;
+        }
+
+        .timeline-content h4 {
+            color: var(--gold);
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content p {
+            color: var(--gray-light);
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(212, 175, 55, 0.1));
+            border-radius: 12px;
+            padding: 3rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.875rem 2.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 1.5rem;
+            background: linear-gradient(135deg, var(--gold), #E5C158);
+            color: var(--black);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
+        }
+
+        footer {
+            background: var(--gray-dark);
+            padding: 4rem 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        footer p {
+            color: var(--gray-light);
+            margin-bottom: 1rem;
+        }
+
+        footer a {
+            color: var(--gold);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        footer a:hover {
+            color: var(--purple);
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                gap: 1.5rem;
+                font-size: 0.85rem;
+            }
+
+            .content-block,
+            .content-block:nth-child(even) {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                direction: ltr;
+            }
+
+            section {
+                padding: 4rem 1.5rem;
+            }
+
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">🦆 Duckie Games</div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="roadmap.html">Roadmap</a></li>
+                <li><a href="devblog.html">Dev Blog</a></li>
+                <li><a href="careers.html">Careers</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero-section">
+        <h1 class="section-title">About <span>Duckie Games</span></h1>
+        <p class="section-subtitle">The story behind our studio and the games we're building</p>
+    </section>
+
+    <section>
+        <div class="content-block">
+            <div class="text-content">
+                <h3>Founded in 2026</h3>
+                <p>Duckie Games was born from a simple idea: turn creative visions into memorable playable experiences. Founded by Logan Ancell, the studio started as a passion project to build original games that stick with players.</p>
+                <p>What began as a dream has grown into a collaborative space where passionate creators come together to build worlds worth exploring. We're not just making games—we're crafting experiences that players will remember long after the final screen.</p>
+            </div>
+            <div class="visual-content">🎮</div>
+        </div>
+
+        <div class="content-block">
+            <div class="text-content">
+                <h3>Our Mission</h3>
+                <p>We believe in creating original indie games with heart, personality, and genuine staying power. Each project is built from the ground up with a focus on meaningful storytelling, engaging gameplay, and worlds that feel alive.</p>
+                <p>Our mission is to bring together passionate creators—artists, programmers, designers, and storytellers—to build something bigger than any one person could alone. We're growing a creative community united by a shared vision.</p>
+            </div>
+            <div class="visual-content">🌍</div>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-title">Our <span>Values</span></h2>
+        <p class="section-subtitle">What drives everything we do at Duckie Games</p>
+        <div class="values-grid">
+            <div class="value-card">
+                <h4>🌟 Memorable Worlds</h4>
+                <p>We build worlds filled with mystery, adventure, and discovery. Every environment tells a story and invites exploration.</p>
+            </div>
+            <div class="value-card">
+                <h4>✨ Meaningful Adventures</h4>
+                <p>Creating experiences that resonate emotionally and stay with players long after they've finished playing.</p>
+            </div>
+            <div class="value-card">
+                <h4>👥 Creative Community</h4>
+                <p>Bringing passionate creators together around projects with heart, personality, and long-term potential.</p>
+            </div>
+            <div class="value-card">
+                <h4>💡 Innovation</h4>
+                <p>Pushing creative boundaries and trying new approaches to game design and storytelling.</p>
+            </div>
+            <div class="value-card">
+                <h4>🎯 Quality First</h4>
+                <p>Every game we release is polished, purposeful, and built to last. We never compromise on what matters.</p>
+            </div>
+            <div class="value-card">
+                <h4>🤝 Collaboration</h4>
+                <p>Success comes from bringing the right people together and creating an environment where creativity thrives.</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-title">Our <span>Journey</span></h2>
+        <p class="section-subtitle">Key milestones as we build Duckie Games</p>
+        
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h4>June 2026 - Studio Foundation</h4>
+                    <p>Duckie Games officially launches as an independent studio. Our website goes live, and we begin recruiting passionate collaborators.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h4>June 2026 - Development Begins</h4>
+                    <p>Croak & Dagger enters active development. The core team starts building the foundation for our flagship dark fantasy adventure.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h4>Q3 2026 - Pre-Production Complete</h4>
+                    <p>Finalize core game direction, visual style, and story. Systems planning and prototype work begins.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h4>Q4 2026 - First Playable Demo</h4>
+                    <p>A polished vertical slice showcasing core gameplay, combat feel, and visual direction.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h4>2027 - Community Feedback</h4>
+                    <p>Open playtest opportunities, community updates, and iteration based on player feedback.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <h3 style="font-size: 2rem; margin-bottom: 1rem;">Interested in joining our team?</h3>
+        <p style="color: var(--gray-light); margin-bottom: 0; font-size: 1.1rem;">We're looking for passionate creators in various roles.</p>
+        <a href="careers.html" class="btn">View Open Positions</a>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Duckie Games. All rights reserved.</p>
+        <p><a href="contact.html">Get in Touch</a> • <a href="devblog.html">Dev Blog</a> • <a href="careers.html">Careers</a></p>
+    </footer>
+</body>
+</html>

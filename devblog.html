@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dev Blog - Duckie Games</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --gold: #D4AF37;
+            --purple: #8B5CF6;
+            --black: #0F0F0F;
+            --white: #FFFFFF;
+            --gray-dark: #2D2D2D;
+            --gray-light: #4A4A4A;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--black);
+            color: var(--white);
+            line-height: 1.6;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 15, 15, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            z-index: 1000;
+            padding: 1rem 2rem;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold), var(--purple));
+            transition: var(--transition);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a:hover {
+            color: var(--gold);
+        }
+
+        section {
+            padding: 6rem 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        section:first-of-type {
+            margin-top: 70px;
+        }
+
+        .hero-section {
+            text-align: center;
+            padding: 6rem 2rem 4rem;
+        }
+
+        .section-title {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .section-title span {
+            color: var(--gold);
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--gray-light);
+            margin-bottom: 3rem;
+            font-weight: 300;
+        }
+
+        .blog-post {
+            background: rgba(139, 92, 246, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 12px;
+            padding: 3rem;
+            margin: 2rem 0;
+            transition: var(--transition);
+        }
+
+        .blog-post:hover {
+            border-color: var(--gold);
+            background: rgba(212, 175, 55, 0.08);
+            transform: translateY(-4px);
+        }
+
+        .blog-date {
+            display: inline-block;
+            background: rgba(212, 175, 55, 0.2);
+            color: var(--gold);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+
+        .blog-title {
+            font-size: 2rem;
+            color: var(--gold);
+            margin: 0.5rem 0 1rem;
+            letter-spacing: -0.5px;
+        }
+
+        .blog-excerpt {
+            color: var(--gray-light);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .blog-meta {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 0.95rem;
+            color: var(--gray-light);
+        }
+
+        .read-more {
+            display: inline-block;
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 1rem;
+            position: relative;
+        }
+
+        .read-more::after {
+            content: ' →';
+            transition: var(--transition);
+        }
+
+        .read-more:hover::after {
+            transform: translateX(5px);
+        }
+
+        .coming-soon {
+            text-align: center;
+            padding: 3rem;
+            color: var(--gray-light);
+        }
+
+        .coming-soon-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .coming-soon h3 {
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+        }
+
+        footer {
+            background: var(--gray-dark);
+            padding: 4rem 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        footer p {
+            color: var(--gray-light);
+            margin-bottom: 1rem;
+        }
+
+        footer a {
+            color: var(--gold);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        footer a:hover {
+            color: var(--purple);
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                gap: 1.5rem;
+                font-size: 0.85rem;
+            }
+
+            section {
+                padding: 4rem 1.5rem;
+            }
+
+            .blog-post {
+                padding: 1.5rem;
+            }
+
+            .blog-title {
+                font-size: 1.5rem;
+            }
+
+            .blog-meta {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">🦆 Duckie Games</div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="roadmap.html">Roadmap</a></li>
+                <li><a href="devblog.html">Dev Blog</a></li>
+                <li><a href="careers.html">Careers</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero-section">
+        <h1 class="section-title">Dev <span>Log</span></h1>
+        <p class="section-subtitle">Follow the development journey of Duckie Games, from early ideas to playable worlds</p>
+    </section>
+
+    <section>
+        <div class="blog-post">
+            <span class="blog-date">June 2026</span>
+            <h2 class="blog-title">Duckie Games Website Begins</h2>
+            <p class="blog-excerpt">
+                The official Duckie Games website is now live! This marks an important milestone for our studio. We've built a home for studio updates, project showcases, recruitment opportunities, and development progress. As we grow, you'll see regular updates about our projects and the creative community we're building.
+            </p>
+            <p class="blog-excerpt">
+                This is the beginning of a public development journey. Follow along as we shape Croak & Dagger, expand our team, and bring our vision for interactive storytelling to life.
+            </p>
+            <div class="blog-meta">
+                <span>📅 Published June 2026</span>
+            </div>
+            <a href="#" class="read-more">Read Full Post</a>
+        </div>
+
+        <div class="blog-post">
+            <span class="blog-date">June 2026</span>
+            <h2 class="blog-title">Croak & Dagger Enters Development</h2>
+            <p class="blog-excerpt">
+                Croak & Dagger is now our primary focus. Our team is deep in pre-production, finalizing the core game direction, story foundations, and visual identity. This dark fantasy action-adventure is shaping up to be something special—a world filled with folklore, mystery, and dangerous marshlands.
+            </p>
+            <p class="blog-excerpt">
+                We're building a game that doesn't just entertain, but creates experiences players will remember. Stay tuned for development updates, concept art reveals, and gameplay showcases as we progress through production.
+            </p>
+            <div class="blog-meta">
+                <span>📅 Published June 2026</span>
+                <span>🎮 Croak & Dagger</span>
+            </div>
+            <a href="#" class="read-more">Read Full Post</a>
+        </div>
+
+        <div class="blog-post">
+            <span class="blog-date">June 2026</span>
+            <h2 class="blog-title">Recruitment Planning Begins</h2>
+            <p class="blog-excerpt">
+                We're preparing to open opportunities for passionate creators across multiple disciplines. Whether you're a programmer, artist, designer, sound engineer, or community builder, if you share our vision for creating worlds worth exploring, we want to hear from you.
+            </p>
+            <p class="blog-excerpt">
+                Our recruitment drive will focus on finding individuals who are passionate about their craft and excited about being part of an independent studio. Positions will be posted soon on our Careers page.
+            </p>
+            <div class="blog-meta">
+                <span>📅 Published June 2026</span>
+                <span>👥 Recruitment</span>
+            </div>
+            <a href="#" class="read-more">Read Full Post</a>
+        </div>
+
+        <div class="blog-post">
+            <span class="blog-date">June 2026</span>
+            <h2 class="blog-title">Project Roadmap Created</h2>
+            <p class="blog-excerpt">
+                We've mapped out our development path from now through launch and beyond. Our roadmap provides transparency into where we are, what we're building, and where we're headed. From foundation work through full development, we're committed to building something meaningful.
+            </p>
+            <p class="blog-excerpt">
+                Check out our Roadmap page to see the 8 phases of Croak & Dagger's journey and understand our long-term vision for Duckie Games as a studio.
+            </p>
+            <div class="blog-meta">
+                <span>📅 Published June 2026</span>
+                <span>🗺️ Roadmap</span>
+            </div>
+            <a href="#" class="read-more">Read Full Post</a>
+        </div>
+
+        <div class="coming-soon">
+            <div class="coming-soon-icon">📝</div>
+            <h3>More Updates Coming</h3>
+            <p>Follow along as we share development progress, behind-the-scenes insights, and exciting announcements about Duckie Games and our projects.</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Duckie Games. All rights reserved.</p>
+        <p><a href="contact.html">Get in Touch</a> • <a href="devblog.html">Dev Blog</a> • <a href="careers.html">Careers</a></p>
+    </footer>
+</body>
+</html>

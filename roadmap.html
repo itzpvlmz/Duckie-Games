@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roadmap - Duckie Games</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --gold: #D4AF37;
+            --purple: #8B5CF6;
+            --black: #0F0F0F;
+            --white: #FFFFFF;
+            --gray-dark: #2D2D2D;
+            --gray-light: #4A4A4A;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--black);
+            color: var(--white);
+            line-height: 1.6;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 15, 15, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            z-index: 1000;
+            padding: 1rem 2rem;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold), var(--purple));
+            transition: var(--transition);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a:hover {
+            color: var(--gold);
+        }
+
+        section {
+            padding: 6rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        section:first-of-type {
+            margin-top: 70px;
+        }
+
+        .hero-section {
+            text-align: center;
+            padding: 6rem 2rem 4rem;
+        }
+
+        .section-title {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .section-title span {
+            color: var(--gold);
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--gray-light);
+            margin-bottom: 3rem;
+            font-weight: 300;
+        }
+
+        .roadmap-container {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .roadmap-timeline {
+            position: relative;
+            padding: 2rem;
+        }
+
+        .roadmap-timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, rgba(212, 175, 55, 0.3), rgba(139, 92, 246, 0.3));
+            transform: translateX(-50%);
+        }
+
+        .phase {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 3rem 0;
+            position: relative;
+        }
+
+        .phase:nth-child(even) {
+            direction: rtl;
+        }
+
+        .phase:nth-child(even) > * {
+            direction: ltr;
+        }
+
+        .phase-content {
+            padding: 2rem;
+            background: rgba(139, 92, 246, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 12px;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .phase-content:hover {
+            background: rgba(212, 175, 55, 0.08);
+            border-color: var(--gold);
+            transform: translateY(-4px);
+        }
+
+        .phase-marker {
+            position: absolute;
+            left: 50%;
+            top: 2rem;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+
+        .phase-dot {
+            width: 24px;
+            height: 24px;
+            background: var(--gold);
+            border: 4px solid var(--gray-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.6rem;
+            color: var(--black);
+            font-weight: 700;
+        }
+
+        .phase-badge {
+            display: inline-block;
+            background: rgba(212, 175, 55, 0.2);
+            color: var(--gold);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+
+        .phase-badge.current {
+            background: rgba(139, 92, 246, 0.2);
+            color: var(--purple);
+        }
+
+        .phase-badge.planned {
+            background: rgba(139, 92, 246, 0.15);
+            color: var(--purple);
+        }
+
+        .phase-number {
+            font-size: 0.9rem;
+            color: var(--gold);
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .phase-title {
+            font-size: 2rem;
+            color: var(--gold);
+            margin: 0.5rem 0 1rem;
+            letter-spacing: -0.5px;
+        }
+
+        .phase-description {
+            color: var(--gray-light);
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .phase-status {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            font-size: 0.95rem;
+            color: var(--purple);
+            font-weight: 500;
+        }
+
+        .empty-space {
+            display: none;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+            padding-top: 4rem;
+            border-top: 2px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(139, 92, 246, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 12px;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--gold);
+            letter-spacing: -1px;
+        }
+
+        .stat-label {
+            color: var(--gray-light);
+            margin-top: 0.5rem;
+            font-weight: 500;
+        }
+
+        footer {
+            background: var(--gray-dark);
+            padding: 4rem 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        footer p {
+            color: var(--gray-light);
+            margin-bottom: 1rem;
+        }
+
+        footer a {
+            color: var(--gold);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        footer a:hover {
+            color: var(--purple);
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                gap: 1.5rem;
+                font-size: 0.85rem;
+            }
+
+            .roadmap-timeline::before {
+                left: 0;
+            }
+
+            .phase {
+                grid-template-columns: 1fr;
+                direction: ltr !important;
+                margin: 2rem 0 2rem 2rem;
+            }
+
+            .phase > * {
+                direction: ltr !important;
+            }
+
+            .phase-marker {
+                left: 0;
+                transform: translateX(-16px);
+            }
+
+            .phase-content {
+                padding: 1.5rem;
+            }
+
+            section {
+                padding: 4rem 1.5rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">🦆 Duckie Games</div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="roadmap.html">Roadmap</a></li>
+                <li><a href="devblog.html">Dev Blog</a></li>
+                <li><a href="careers.html">Careers</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero-section">
+        <h1 class="section-title">Road <span>Map</span></h1>
+        <p class="section-subtitle">A look at where Duckie Games is now, what we are building, and where we are headed next</p>
+    </section>
+
+    <section class="roadmap-container">
+        <div class="roadmap-timeline">
+            <div class="phase">
+                <div></div>
+                <div class="phase-content">
+                    <div class="phase-marker">
+                        <div class="phase-dot">1</div>
+                    </div>
+                    <div class="phase-badge current">Phase 1 - Current Focus</div>
+                    <h3 class="phase-title">Studio Foundation</h3>
+                    <p class="phase-description">Establish Duckie Games as an independent studio, build the official website, organize project documentation, and begin recruiting passionate collaborators to grow our team.</p>
+                    <div class="phase-status">✓ Currently underway</div>
+                </div>
+            </div>
+
+            <div class="phase">
+                <div class="phase-content">
+                    <div class="phase-marker">
+                        <div class="phase-dot">2</div>
+                    </div>
+                    <div class="phase-badge current">Phase 2 - In Progress</div>
+                    <h3 class="phase-title">Croak & Dagger Pre-Production</h3>
+                    <p class="phase-description">Finalize core game direction, story foundations, visual style, and system architecture. Complete concept art, prototype planning, and build the technical foundation for production.</p>
+                    <div class="phase-status">✓ In progress</div>
+                </div>
+                <div></div>
+            </div>
+
+            <div class="phase">
+                <div></div>
+                <div class="phase-content">
+                    <div class="phase-marker">
+                        <div class="phase-dot">3</div>
+                    </div>
+                    <div class="phase-badge planned">Phase 3 - Next Step</div>
+                    <h3 class="phase-title">Prototype Development</h3>
+                    <p class="phase-description">Build early playable systems including movement mechanics, combat systems, basic enemy AI, UI implementation, level structure foundations, and audio foundations. Create the first testable environment.</p>
+                    <div class="phase-status">→ Planned</div>
+                </div>
+            </div>
+
+            <div class="phase">
+                <div class="phase-content">
+                    <div class="phase-marker">
+                        <div class="phase-dot">4</div>
+                    </div>
+                    <div class="phase-badge planned">Phase 4 - Planned</div>
+                    <h3 class="phase-title">Playable Demo</h3>
+                    <p class="phase-description">Create a polished, vertical slice showcasing core gameplay loop, visual direction, combat feel, musical direction, atmospheric elements, and early story presentation.</p>
+                    <div class="phase-status">→ Planned</div>
+                </div>
+                <div></div>
+            </div>
+
+            <div class="phase">
+                <div></div>
+                <div class="phase-content">
+                    <div class="phase-marker">
+                        <div class="phase-dot">5</div>
+                    </div>
+                    <div class="phase-badge planned">Phase 5 - Planned</div>
+                    <h3 class="phase-title">Community & Playtesting</h3>
+                    <p class="phase-description">Open early feedback opportunities through private testing sessions, community updates, development vlogs, player surveys, and focused iteration based on community input.</p>
+                    <div class="phase-status">→ Planned</div>
+                </div>
+            </div>
+
+            <div class="phase">
+                <div class="phase-content">
+                    <div class="phase-marker">
+                        <div class="phase-dot">6</div>
+                    </div>
+                    <div class="phase-badge planned">Phase 6 - Planned</div>
+                    <h3 class="phase-title">Crowdfunding Preparation</h3>
+                    <p class="phase-description">Prepare campaign materials, create trailer content, compile reward tier proposals, gather gameplay footage, finalize soundtrack samples, and solidify project goals for a public launch.</p>
+                    <div class="phase-status">→ Planned</div>
+                </div>
+                <div></div>
+            </div>
+
+            <div class="phase">
+                <div></div>
+                <div class="phase-content">
+                    <div class="phase-marker">
+                        <div class="phase-dot">7</div>
+                    </div>
+                    <div class="phase-badge planned">Phase 7 - Future Goal</div>
+                    <h3 class="phase-title">Full Development</h3>
+                    <p class="phase-description">Expand with additional levels, boss encounters, enemy variety, character classes, advanced systems, story depth, final polish, comprehensive testing, and production milestones.</p>
+                    <div class="phase-status">→ Future goal</div>
+                </div>
+            </div>
+
+            <div class="phase">
+                <div class="phase-content">
+                    <div class="phase-marker">
+                        <div class="phase-dot">8</div>
+                    </div>
+                    <div class="phase-badge planned">Phase 8 - Long-term Vision</div>
+                    <h3 class="phase-title">Launch & Beyond</h3>
+                    <p class="phase-description">Release Croak & Dagger to the world, support the growing community, provide post-launch updates and content, and continue developing Duckie Games through future projects and long-term expansion.</p>
+                    <div class="phase-status">→ Long-term vision</div>
+                </div>
+                <div></div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">8</div>
+                <div class="stat-label">Development Phases</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">2</div>
+                <div class="stat-label">Active Phases</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">∞</div>
+                <div class="stat-label">Games Planned</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">2026</div>
+                <div class="stat-label">Founded Year</div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Duckie Games. All rights reserved.</p>
+        <p><a href="contact.html">Get in Touch</a> • <a href="devblog.html">Dev Blog</a> • <a href="careers.html">Careers</a></p>
+    </footer>
+</body>
+</html>
